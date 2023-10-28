@@ -58,7 +58,7 @@ The error rate measures the percentage of requests that result in errors or fail
 ## Tracing our Flask App
 *TODO:*  We will create a Jaeger span to measure the processes on the backend. Once you fill in the span, provide a screenshot of it here. Also provide a (screenshot) sample Python file containing a trace and span code used to perform Jaeger traces on the backend service.
 
-![](answer-img/5_add_star.png)
+![](answer-img/5_jaeger_add_star.png)
 ![](answer-img/6_jaeger_homepage.png)
 ![](answer-img/7_jaeger_code.png)
 ![](answer-img/8_jaeger_code.png)
