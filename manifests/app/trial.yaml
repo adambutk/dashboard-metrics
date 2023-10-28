@@ -1,0 +1,56 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: trial-app
+  annotations:
+    "sidecar.jaegertracing.io/inject": "true"
+spec:
+  selector:
+    matchLabels:
+      app: trial
+  template:
+    metadata:
+      labels:
+        app: trial
+    spec:
+      containers:
+      - name: trial
+        # We advise you to build, push and use your own image, instead of using instructor's image.
+        image: ghcr.io/jasonsmithio/trial:v1
+        ports:
+        - name: trial-port
+          containerPort: 8080
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: trial-service
+spec:
+  selector:
+    app: trial
+  ports:
+    - port: 8082
+      targetPort: 8080
+      nodePort: 30078
+  type: LoadBalancer
+---
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  name: trail
+  namespace: monitoring
+  labels:
+    app: trail
+    release: prometheus
+spec:
+  selector:
+    matchLabels:
+      app: trail
+  endpoints:
+  - port: trail-port
+    path: /metrics
+    interval: 30s
+  namespaceSelector:
+    matchNames:
+    - default
